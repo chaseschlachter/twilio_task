@@ -1,0 +1,14 @@
+I need Twilio to message every phone number in a given event from my model 20 minutes after the event starts.
+The event start time is listed as the `event_start` variable in the event model.
+
+I've included the `showEvent` function of my events controller for additional context and in case that function
+needs to call the Twilio function (wherever that may end up) on a delay. Basically, without fully knowing
+how this will work I'm anticipating the code will be written in the events controller (as that's where 
+most of the functionality for my app resides).
+
+It's critical that the code send the text on time (20 mins after event_start) *even if* guests
+add their number a week or even a month in advance.
+
+I've also added some dummy data to the repo to help you build the feature.
+
+I'm happy to add more code it you need!
