@@ -22,6 +22,29 @@
     "__v" : 1 
 }
 { 
+  "_id" : ObjectId("61ec88e1019af223584a32da"), 
+    "event_name" : "Test 7", 
+    "venue_name" : "The Monarch", 
+    "address" : "801 W 5th Street Austin TX", 
+    "description" : "Testing with requestanimationframe", 
+    "image" : "https://test.com", 
+    "geometry" : { 
+      "type" : "Point", 
+      "coordinates" : [ -97.751759, 30.26915 ] 
+    }, 
+    "event_start" : ISODate("2022-02-22T22:46:00Z"), 
+    "event_end" : ISODate("2022-02-23T02:44:00Z"), 
+    "guests" : [ 
+      { 
+       "phone" : 1234567890, 
+       "_id" : ObjectId("61ec88e4019af223584a32e5"),
+       } 
+     ], 
+    "created" : ISODate("2022-01-22T22:44:49.179Z"), 
+    "artist" : ObjectId("610f16a6ba0d5fc2d4593093"), 
+    "__v" : 1 
+}
+{ 
   "_id" : ObjectId("6178a889a8528a25ed2d5c4b"), 
     "event_name" : "Geolocation test from home", 
     "venue_name" : "The Monarch",
