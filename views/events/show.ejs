@@ -1,0 +1,89 @@
+<% layout('layouts/boilerplate') %> 
+
+<div class="row">
+    <div class="col-8 offset-2">
+        <div class="card mb-3 shadow">
+          <div class="card-body mb-4">
+            <div id="map-container">
+              <div id="map">
+              </div>
+            </div>
+          </div>
+            <div class="card-body">
+              <h5 class="card-title"><%= event.event_name %></h5>
+              <p class="card-text"><%= event.description %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item fw-bold">Artist: 
+                <a class="fw-normal" href="/artists/<%=event.artist.id%>/"><%= event.artist.username %></a>
+                </li>
+              <li class="list-group-item fw-bold">Start: 
+                  <span class="fw-normal"><%= event.event_start %></span>
+                </li>
+              <li class="list-group-item fw-bold">End: 
+                <span class="fw-normal"><%= event.event_end %></span>
+                </li>
+              <li class="list-group-item fw-bold">Signups: 
+                <span class="fw-normal"><%= guestSignups %></span>
+              </li>
+              <li class="list-group-item fw-bold">Official draw: 
+                <span class="fw-normal"><%= guestAttends %></span>
+              </li>
+            </ul>
+            <% if (currentUser && event.artist.equals(currentUser._id)) {%> 
+            <div class="card-body">
+              <a class="card-link btn btn-primary" href="/events/<%=event.id%>/edit">Edit</a>
+              <form class="d-inline" action="/events/<%=event.id%>?_method=DELETE" method="POST">
+                <button class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+            <% } %> 
+          </div>
+    </div>
+</div>
+
+
+<div class="row">
+<div class="col-8 offset-2">
+  <div class="card mb-4 shadow">
+    <% if( currentDateParse < Date.parse(event.event_start) && (eventIdCookie !== event.id) ){%> 
+      <h3 class="text-center mt-2">Signup</h3>
+      <p class="text-center">Add your phone number below and we'll text the check-in once the show begins</p>
+      <div class="col-6 offset-3">
+      
+      // form submission for phone numbers //
+      
+        <form action="/events/<%= event._id%>/guests" method="POST" novalidate class="needs-validation">
+            <div class="mb-3">
+                <label class="form-label" for="phone"></label>
+                <input class="form-control" type="phone" id="guest[phone]" placeholder="(123) 456-7890 " name="guest[phone]" required autofocus>
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto mb-2">
+                <button class="btn btn-primary">Submit</button>
+              </div>
+            </form>        
+          </div>
+        <% } else if ( currentDateParse < Date.parse(event.event_start) && (eventIdCookie == event.id) ) { %>
+          <h3 class="text-center mt-2">See you at the show!</h3>
+          <p1 class="text-center mb-2">Bring your phone to the even so you can check in.</p1>
+          <% } else if ( currentDateParse > Date.parse(event.event_end)) { %> 
+          <h3 class="text-center mt-2">The event has ended.</h3>
+          <% } %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+  const tag = <%- JSON.stringify(event)%>;
+  </script>
+
+<script>
+  const eventCoords = '<%- event.geometry.coordinates %>'
+  const eventID = '<%- event.id %>';
+  const startTime = '<%- event.event_start %>'
+  const startTimeParse = Date.parse(startTime);
+</script>
+
+<script src="/javascripts/showPageMap.js"></script>
